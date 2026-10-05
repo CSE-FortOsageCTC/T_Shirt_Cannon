@@ -53,8 +53,8 @@ public class Swerve extends SubsystemBase{
     public SwerveDriveOdometry swerveOdometry;
     public SwerveModule[] mSwerveMods;
     // public Pigeon2 gyro;
-    private SwerveDrivePoseEstimator swerveEstimator;
-    private SwerveDrivePoseEstimator limeLightSwerveEstimator;
+    // private SwerveDrivePoseEstimator swerveEstimator;
+    // private SwerveDrivePoseEstimator limeLightSwerveEstimator;
     private static Swerve swerve;
     public double gyroOffset;
     public PIDController rotationPidController;
@@ -109,8 +109,8 @@ public class Swerve extends SubsystemBase{
         // swerveEstimator = new SwerveDrivePoseEstimator(Constants.Swerve.swerveKinematics, getGyroRot2d(), getModulePositions(), new Pose2d(0, 0, new Rotation2d()));
         // limeLightSwerveEstimator = new SwerveDrivePoseEstimator(Constants.Swerve.swerveKinematics, getGyroRot2d(), getModulePositions(), new Pose2d(0, 0, new Rotation2d()));
 
-        swerveEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(0.5, 0.5, Units.degreesToRadians(.5)));
-        limeLightSwerveEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(0.5, 0.5, Units.degreesToRadians(.5)));
+        // swerveEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(0.5, 0.5, Units.degreesToRadians(.5)));
+        // limeLightSwerveEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(0.5, 0.5, Units.degreesToRadians(.5)));
 
     }
     public void updatePoseEstimator() {
@@ -127,21 +127,21 @@ public class Swerve extends SubsystemBase{
     //     field.getObject("traj").setTrajectory(TrajectoryGenerator.generateTrajectory(List.of(traj.getPoses()), new TrajectoryConfig(10000, 10000)));
     // }
 
-    public Pose2d getEstimatedPosition(){
-        return swerveEstimator.getEstimatedPosition();
+    // public Pose2d getEstimatedPosition(){
+        // return swerveEstimator.getEstimatedPosition();
         // return swerveOdometry.getPoseMeters();
-    }
-    public double getVelocityCorrectionDistance(double distance, ChassisSpeeds speeds){
-        double noteAirTime = distance / 10.415;
-        double robotDistance = noteAirTime * speeds.vyMetersPerSecond;
-        robotDistance = DriverStation.getAlliance().equals(Alliance.Red)? robotDistance * 0 : robotDistance;
-        return robotDistance + distance;
-    }
-    public double getVelocityCorrection(double distance, ChassisSpeeds speeds){
-        double noteAirTime = distance / 10.415;
-        double robotDistanceCorrection = noteAirTime * speeds.vyMetersPerSecond;
-        return robotDistanceCorrection;
-    }
+    // }
+    // public double getVelocityCorrectionDistance(double distance, ChassisSpeeds speeds){
+    //     double noteAirTime = distance / 10.415;
+    //     double robotDistance = noteAirTime * speeds.vyMetersPerSecond;
+    //     robotDistance = DriverStation.getAlliance().equals(Alliance.Red)? robotDistance * 0 : robotDistance;
+    //     return robotDistance + distance;
+    // }
+    // public double getVelocityCorrection(double distance, ChassisSpeeds speeds){
+    //     double noteAirTime = distance / 10.415;
+    //     double robotDistanceCorrection = noteAirTime * speeds.vyMetersPerSecond;
+    //     return robotDistanceCorrection;
+    // }
 
     // public void updateWithVision(Pose2d pose2d, double timestamp){
     //     Pose2d test = new Pose2d(pose2d.getTranslation(), Rotation2d.fromDegrees(correctedYaw()));
@@ -162,8 +162,8 @@ public class Swerve extends SubsystemBase{
                 fieldRelative ? ChassisSpeeds.fromFieldRelativeSpeeds(
                                     translation.getX(), 
                                     translation.getY(), 
-                                    rotation, 
-                                    getHeading()
+                                    rotation,
+                                    null // getHeading()
                                 )
                                 : new ChassisSpeeds(
                                     translation.getX(), 
@@ -215,12 +215,12 @@ public class Swerve extends SubsystemBase{
         return positions;
     }
 
-    public Pose2d getPose() {
-    //     SmartDashboard.putNumber("Estimated x Pose", swerveOdometry.getPoseMeters().getX());
-    //     SmartDashboard.putNumber("Estimated y Pose", swerveOdometry.getPoseMeters().getY());
-        return swerveEstimator.getEstimatedPosition();
-        // return swerveEstimator.getEstimatedPosition();
-    }
+    // public Pose2d getPose() {
+    // //     SmartDashboard.putNumber("Estimated x Pose", swerveOdometry.getPoseMeters().getX());
+    // //     SmartDashboard.putNumber("Estimated y Pose", swerveOdometry.getPoseMeters().getY());
+    //     return swerveEstimator.getEstimatedPosition();
+    //     // return swerveEstimator.getEstimatedPosition();
+    // }
 
     // public Pose2d getAutoLimelightBotPose(){
     //     if (s_Limelight.getArea() >= 0.17) {
@@ -236,35 +236,35 @@ public class Swerve extends SubsystemBase{
     //     return limeLightSwerveEstimator.getEstimatedPosition();
     // }
 
-    public Pose2d getTeleopLimelightBotPose(){
-        // if (s_Limelight.getArea() >= 0.17) {
-        //     // ChassisSpeeds speeds = Constants.Swerve.swerveKinematics.toChassisSpeeds(getModuleStates());
-        //     // if (Math.abs(speeds.vxMetersPerSecond) < .25 && Math.abs(speeds.vyMetersPerSecond) < 1){
-        //     //     Pose2d visionPose = s_Limelight.getBotPose();
-        //     //     updateWithVisionLLEsitmator(visionPose, s_Limelight.getLastBotPoseTimestamp());
-        //     // }
-        //     Pose2d visionPose = s_Limelight.getBotPose();
-        //     // updateWithVisionLLEsitmator(visionPose, s_Limelight.getLastBotPoseTimestamp());
-        // }
+    // public Pose2d getTeleopLimelightBotPose(){
+    //     // if (s_Limelight.getArea() >= 0.17) {
+    //     //     // ChassisSpeeds speeds = Constants.Swerve.swerveKinematics.toChassisSpeeds(getModuleStates());
+    //     //     // if (Math.abs(speeds.vxMetersPerSecond) < .25 && Math.abs(speeds.vyMetersPerSecond) < 1){
+    //     //     //     Pose2d visionPose = s_Limelight.getBotPose();
+    //     //     //     updateWithVisionLLEsitmator(visionPose, s_Limelight.getLastBotPoseTimestamp());
+    //     //     // }
+    //     //     Pose2d visionPose = s_Limelight.getBotPose();
+    //     //     // updateWithVisionLLEsitmator(visionPose, s_Limelight.getLastBotPoseTimestamp());
+    //     // }
         
-        return limeLightSwerveEstimator.getEstimatedPosition();
-    }
+    //     return limeLightSwerveEstimator.getEstimatedPosition();
+    // }
 
-    public Pose2d getLimelightBotPose(){
+    // public Pose2d getLimelightBotPose(){
         
-        //Pose2d currentPose = getEstimatedPosition();
-        // if ((DriverStation.isDisabled() || !DriverStation.isAutonomous()) && s_Limelight.getArea() >= 0.18) {
-        //     Pose2d visionPose = s_Limelight.getBotPose();
+    //     //Pose2d currentPose = getEstimatedPosition();
+    //     // if ((DriverStation.isDisabled() || !DriverStation.isAutonomous()) && s_Limelight.getArea() >= 0.18) {
+    //     //     Pose2d visionPose = s_Limelight.getBotPose();
 
-        //     // if ((visionPose.getX() != 0 && visionPose.getY() != 0 && Math.abs(currentPose.getX() - visionPose.getX()) < 1 && Math.abs(currentPose.getY() - visionPose.getY()) < 1) || RobotState.isDisabled()) {
-        //         // updateWithVision(visionPose, s_Limelight.getLastBotPoseTimestamp());
-        //        // return visionPose;
-        //     // } else {
-        //     //     return currentPose;
-        //     // }
-        // }
-        //SmartDashboard.putNumber("Current Position X", currentPose.getX());
-        return getEstimatedPosition();
+    //     //     // if ((visionPose.getX() != 0 && visionPose.getY() != 0 && Math.abs(currentPose.getX() - visionPose.getX()) < 1 && Math.abs(currentPose.getY() - visionPose.getY()) < 1) || RobotState.isDisabled()) {
+    //     //         // updateWithVision(visionPose, s_Limelight.getLastBotPoseTimestamp());
+    //     //        // return visionPose;
+    //     //     // } else {
+    //     //     //     return currentPose;
+    //     //     // }
+    //     // }
+    //     //SmartDashboard.putNumber("Current Position X", currentPose.getX());
+    //     return getEstimatedPosition();
         // Pose2d botPose = s_Limelight.getBotPose(); 
         // double botX = botPose.getX();
         // double botY = botPose.getY();
@@ -278,7 +278,7 @@ public class Swerve extends SubsystemBase{
         //     System.out.println(botPose);
         // }
         // return botPose;
-    }
+    // }
 
     // public void setPose(Pose2d pose) {
     //     swerveEstimator.resetPosition(getGyroYaw(), getModulePositions(), pose);
@@ -286,9 +286,9 @@ public class Swerve extends SubsystemBase{
     //     // swerveEstimator.resetPosition(getGyroYaw(), getModulePositions(), pose);
     // }
 
-    public Rotation2d getHeading(){
-        return swerveEstimator.getEstimatedPosition().getRotation();
-    }
+    // public Rotation2d getHeading(){
+    //     return swerveEstimator.getEstimatedPosition().getRotation();
+    // }
 
     // public void setHeading(Rotation2d heading){
     //     Rotation2d gyroYaw = getGyroYaw();
@@ -328,11 +328,11 @@ public class Swerve extends SubsystemBase{
         return Constants.Swerve.swerveKinematics.toChassisSpeeds(getModuleStates());
     }
     
-    public ChassisSpeeds getEstimatedFieldRelativeSpeeds(){
-        ChassisSpeeds speed = Constants.Swerve.swerveKinematics.toChassisSpeeds(getModuleStates());
-        speed = ChassisSpeeds.fromRobotRelativeSpeeds(speed, getHeading());
-        return speed;
-    }
+    // public ChassisSpeeds getEstimatedFieldRelativeSpeeds(){
+    //     ChassisSpeeds speed = Constants.Swerve.swerveKinematics.toChassisSpeeds(getModuleStates());
+    //     speed = ChassisSpeeds.fromRobotRelativeSpeeds(speed, getHeading());
+    //     return speed;
+    // }
     
     public void driveRobotRelative(ChassisSpeeds robotRelativeSpeeds){
 
@@ -458,18 +458,18 @@ public class Swerve extends SubsystemBase{
             // SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Angle", mod.getPosition().angle.getDegrees());
             // SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Velocity", mod.getState().speedMetersPerSecond);    
         }
-        Pose2d estimatedPose = swerveEstimator.getEstimatedPosition();
-        poseA = new Pose3d(getLimelightBotPose());
-        publisher.set(poseA);
-        arrayPublisher.set(new Pose3d[] {poseA, poseB});
+        // Pose2d estimatedPose = swerveEstimator.getEstimatedPosition();
+        // poseA = new Pose3d(getLimelightBotPose());
+        // publisher.set(poseA);
+        // arrayPublisher.set(new Pose3d[] {poseA, poseB});
 
-        double odometryX = estimatedPose.getX();
-        double odometryY = estimatedPose.getY();
-        // Pose2d botPose = getAutoLimelightBotPose();
-        field.setRobotPose(estimatedPose);
-        SmartDashboard.putData("Field", field);
-        SmartDashboard.putNumber("Odometry X", odometryX);
-        SmartDashboard.putNumber("Odometry Y", odometryY);
+        // double odometryX = estimatedPose.getX();
+        // double odometryY = estimatedPose.getY();
+        // // Pose2d botPose = getAutoLimelightBotPose();
+        // field.setRobotPose(estimatedPose);
+        // SmartDashboard.putData("Field", field);
+        // SmartDashboard.putNumber("Odometry X", odometryX);
+        // SmartDashboard.putNumber("Odometry Y", odometryY);
 
         //SmartDashboard.putNumber("limelightBotPose X", botPose.getX());
         //SmartDashboard.putNumber("limelightBotPose Y", botPose.getY());
