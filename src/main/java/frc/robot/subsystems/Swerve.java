@@ -1,7 +1,7 @@
 package frc.robot.subsystems;
 
 import frc.robot.SwerveModule;
-import frc.robot.AutoRotateUtil;
+// import frc.robot.AutoRotateUtil;
 import frc.robot.Constants;
 
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
@@ -29,7 +29,7 @@ public class Swerve extends SubsystemBase{
     public PIDController rotationPidController;
     public PIDController yTranslationPidController;
     public PIDController xTranslationPidController;
-    public AutoRotateUtil s_AutoRotateUtil;
+    // public AutoRotateUtil s_AutoRotateUtil;
     public Debouncer pieceSeenDebouncer;
     public Field2d field;
     public StructPublisher<Pose3d> publisher;
@@ -49,7 +49,7 @@ public class Swerve extends SubsystemBase{
 
     private Swerve() {
         pieceSeenDebouncer = new Debouncer(.1, Debouncer.DebounceType.kBoth);
-        s_AutoRotateUtil = new AutoRotateUtil(0);
+        // s_AutoRotateUtil = new AutoRotateUtil(0);
         field = new Field2d();
         
         publisher = NetworkTableInstance.getDefault().getStructTopic("MyPose", Pose3d.struct).publish();
@@ -148,9 +148,9 @@ public class Swerve extends SubsystemBase{
         }
     }
 
-    public void resetAutoRotateUtil(){
-        s_AutoRotateUtil.end();
-    }
+    // public void resetAutoRotateUtil(){
+    //     s_AutoRotateUtil.end();
+    // }
     
     @Override
     public void periodic(){

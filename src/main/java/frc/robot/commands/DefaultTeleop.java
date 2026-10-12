@@ -10,14 +10,14 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.AlignPosition;
-import frc.robot.AutoRotateUtil;
+// import frc.robot.AlignPosition;
+// import frc.robot.AutoRotateUtil;
 import frc.robot.Constants;
 import frc.robot.subsystems.Swerve;
 
 public class DefaultTeleop extends Command{
 
-    private AutoRotateUtil s_AutoRotateUtil;
+    // private AutoRotateUtil s_AutoRotateUtil;
 
     private Swerve s_Swerve;
 
@@ -37,7 +37,7 @@ public class DefaultTeleop extends Command{
     public DefaultTeleop(Joystick driver, Joystick operator) {
         s_Swerve = Swerve.getInstance();
         // s_DefaultTeleop = DefaultTeleopSub.getInstance();
-        s_AutoRotateUtil = new AutoRotateUtil(0); 
+        // s_AutoRotateUtil = new AutoRotateUtil(0); 
         this.driver = driver;
         throttle = XboxController.Axis.kRightTrigger.value;
         translationSup = XboxController.Axis.kLeftY.value;
@@ -60,7 +60,7 @@ public class DefaultTeleop extends Command{
         double yAxis = alliance.equals(Alliance.Red) ? -driver.getRawAxis(translationSup) : driver.getRawAxis(translationSup);
         double xAxis = alliance.equals(Alliance.Red) ? -driver.getRawAxis(strafeSup) : driver.getRawAxis(strafeSup);
         double rotationAxis = driver.getRawAxis(rotationSup);
-        alignPose = AlignPosition.getAlignPose();
+        // alignPose = AlignPosition.getAlignPose();
         SmartDashboard.putString("Teleop Alignment", alignPose == null ? "" : alignPose.toString());
 
         double translationVal = MathUtil.applyDeadband(yAxis, Constants.stickDeadband);
@@ -73,9 +73,9 @@ public class DefaultTeleop extends Command{
         throttleAxis = (Math.abs(throttleAxis) < Constants.stickDeadband) ? .2 : throttleAxis;
         rotationAxis = (Math.abs(rotationAxis) < Constants.stickDeadband) ? 0 : rotationAxis;
 
-        if (rotationAxis != 0) {
-            AlignPosition.setPosition(AlignPosition.Manual);
-        }
+        // if (rotationAxis != 0) {
+        //     AlignPosition.setPosition(AlignPosition.Manual);
+        // }
 
         rotationVal = rotationLimiter.calculate(rotationAxis) * (throttleLimiter.calculate(throttleAxis));
 
@@ -87,8 +87,8 @@ public class DefaultTeleop extends Command{
 
     }
 
-    @Override
-    public void end(boolean isFinished) {
-        s_AutoRotateUtil.end();
-    }
+    // @Override
+    // public void end(boolean isFinished) {
+    //     s_AutoRotateUtil.end();
+    // }
 }
